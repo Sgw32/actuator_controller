@@ -14,7 +14,7 @@ uint32_t timeBackward = 0;
 
 void process_unknown(uint8_t endswitch_state)
 {
-	HAL_GPIO_WritePin(LED_GPIO_Port, LED_Pin, GPIO_PIN_SET); //To fade the led on bluepill, we need to set it. 
+    HAL_GPIO_WritePin(LED_GPIO_Port, LED_Pin, GPIO_PIN_SET); //To fade the led on bluepill, we need to set it. 
     //Determine current position after power on:
     if (endswitch_state == ENDSWITCH_BACKWARD)
     { 
