@@ -1,3 +1,14 @@
+/**
+ * @file actuator.c
+ * @author Fedor Zagumennov
+ * @brief Actuator C file for actuator controller project
+ * @version 0.1
+ * @date 2023-09-06
+ * 
+ * @copyright Copyright (c) 2023
+ * 
+ */
+
 #include "actuator.h"
 #include "main.h"
 
