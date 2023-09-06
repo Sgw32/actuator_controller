@@ -42,6 +42,7 @@ void process_calibration_home_backward(uint8_t endswitch_state)
     uint32_t tB = HAL_GetTick() - operationTimestamp;
     if (tB>ACTUATOR_TIMEOUT_IN_TICKS)
     {
+        move_actuator(MOVE_ACTUATOR_IDLE);
         state = ACTUATOR_ERROR;
         return;
     }
@@ -60,6 +61,7 @@ void process_calibration_home_forward(uint8_t endswitch_state)
     uint32_t tF = HAL_GetTick() - operationTimestamp;
     if (tF>ACTUATOR_TIMEOUT_IN_TICKS)
     {
+        move_actuator(MOVE_ACTUATOR_IDLE);
         state = ACTUATOR_ERROR;
         return;
     }
@@ -78,6 +80,7 @@ void process_calibration_speed_forward(uint8_t endswitch_state)
     uint32_t tF = HAL_GetTick() - operationTimestamp;
     if (tF>ACTUATOR_TIMEOUT_IN_TICKS)
     {
+        move_actuator(MOVE_ACTUATOR_IDLE);
         state = ACTUATOR_ERROR;
         return;
     }
@@ -107,6 +110,7 @@ void process_calibration_speed_backward(uint8_t endswitch_state)
     uint32_t tB = HAL_GetTick() - operationTimestamp;
     if (tB>ACTUATOR_TIMEOUT_IN_TICKS)
     {
+        move_actuator(MOVE_ACTUATOR_IDLE);
         state = ACTUATOR_ERROR;
         return;
     }

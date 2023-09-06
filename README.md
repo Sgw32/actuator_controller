@@ -41,6 +41,9 @@ Normally started, we check for endpoints status.
 After touching backward endpoint we calibrate forward velocity by measuring time, and then backward velocity again by measuring time. 
 - If we are on forward endpoint, move backward is in previous case
 - If we are on backward endpoint, move forward until endpoint, and then measure backward and forward velocities by measured time. 
-- From the last endpoint, move in opposite direction by corresponding time / 2. Stop here and threat it as a middle point. 
+- From the last endpoint, move in opposite direction by corresponding time / 2. Stop here and treat it as a middle point. 
+
+If any error while working, actuator stops and blinker on PC13 is activated. 
+Direction inputs are debounced by 20 samples.
 
 To evaluate such a behaviour, press a backward endpoint button soon after start, then press forward endpoint button, and then again backward point(calibration of time). Then wait for middle point position. 
