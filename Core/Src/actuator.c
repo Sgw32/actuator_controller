@@ -14,13 +14,14 @@ uint32_t timeBackward = 0;
 
 void process_unknown(uint8_t endswitch_state)
 {
-	  HAL_GPIO_WritePin(LED_GPIO_Port, LED_Pin, GPIO_PIN_SET); //To fade the led on bluepill, we need to set it. 
+	HAL_GPIO_WritePin(LED_GPIO_Port, LED_Pin, GPIO_PIN_SET); //To fade the led on bluepill, we need to set it. 
     //Determine current position after power on:
     if (endswitch_state == ENDSWITCH_BACKWARD)
     { 
         //We are on backward endpoint, move forward
         state = CALIBRATION_HOME_FORWARD;
         move_actuator(MOVE_ACTUATOR_FORWARD);
+        operationTimestamp = HAL_GetTick();
         return;
     }
     if (endswitch_state == ENDSWITCH_FORWARD)
@@ -28,6 +29,7 @@ void process_unknown(uint8_t endswitch_state)
         //We are on forward endpoint, move backward
         state = CALIBRATION_HOME_BACKWARD;
         move_actuator(MOVE_ACTUATOR_BACKWARD);
+        operationTimestamp = HAL_GetTick();
         return;
     }
     //Move backward otherwise
@@ -37,6 +39,12 @@ void process_unknown(uint8_t endswitch_state)
 
 void process_calibration_home_backward(uint8_t endswitch_state)
 {
+    uint32_t tB = HAL_GetTick() - operationTimestamp;
+    if (tB>ACTUATOR_TIMEOUT_IN_TICKS)
+    {
+        state = ACTUATOR_ERROR;
+        return;
+    }
     if (endswitch_state==ENDSWITCH_BACKWARD) 
     {
         //On home backward
@@ -49,6 +57,12 @@ void process_calibration_home_backward(uint8_t endswitch_state)
 
 void process_calibration_home_forward(uint8_t endswitch_state)
 {
+    uint32_t tF = HAL_GetTick() - operationTimestamp;
+    if (tF>ACTUATOR_TIMEOUT_IN_TICKS)
+    {
+        state = ACTUATOR_ERROR;
+        return;
+    }
     if (endswitch_state==ENDSWITCH_FORWARD) 
     {
         //On home forward
